@@ -1,0 +1,21 @@
+﻿<Window x:Class="GroceryMaster.Dialogs.StorageItemInputDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:GroceryMaster.Dialogs"
+        mc:Ignorable="d"
+        Title="Input" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <ComboBox Name="CmbBox" Grid.Row="0" ItemsSource="{Binding Path=ItemCategories}" />
+        <WrapPanel Grid.Row="1" HorizontalAlignment="Right" Margin="0, 15, 0, 0">
+            <Button IsDefault="True" Name="BtnDialogOk" Click="BtnDialogOk_OnClick" MinWidth="60" Margin="0, 0, 10, 0" Content="Add Item" />
+            <Button IsCancel="True" MinWidth="60" Content="Cancel" />
+        </WrapPanel>
+    </Grid>
+</Window>

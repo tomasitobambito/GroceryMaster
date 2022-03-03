@@ -1,4 +1,5 @@
-﻿using System.Windows.Input;
+﻿using System.Windows;
+using System.Windows.Input;
 using GroceryMaster.Dialogs;
 using GroceryMaster.Handlers;
 
@@ -11,10 +12,13 @@ namespace GroceryMaster.ViewModel
 
         private string _testText;
 
-        public string TextText
+        public string TestText
         {
             get => _testText;
-            set => SetProperty(ref _testText, value);
+            set
+            {
+                SetProperty(ref _testText, value);
+            }
         }
 
         public MainWindowViewModel()
@@ -25,16 +29,21 @@ namespace GroceryMaster.ViewModel
 
         public void OnNewEntry(object commandParameter)
         {
-            InputTextDialog inputDialog = new InputTextDialog("Please enter your name:", "John Doe");
+            StorageItemInputDialog inputDialog = new StorageItemInputDialog();
             if (inputDialog.ShowDialog() == true)
-                _testText = inputDialog.Answer;
-            
+                MessageBox.Show(inputDialog.Selected);
+            TestText = "this is some new text, take that ruben";
+
             _newEntryCommand.InvokeCanExecuteChanged();
+            
+            //subject to change (this is for testing atm)
         }
 
         public bool CanNewEntry(object commandParameter)
         {
             return true;
+            
+            //subject to change (this is for testing atm)
         }
     }
 }

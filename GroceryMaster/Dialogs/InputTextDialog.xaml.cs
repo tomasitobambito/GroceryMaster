@@ -17,12 +17,6 @@ namespace GroceryMaster.Dialogs
             DialogResult = true;
         }
 
-        private void Window_ContentRendered(object sender, EventArgs e)
-        {
-            TxtAnswer.SelectAll();
-            TxtAnswer.Focus();
-        }
-
         public string Answer => TxtAnswer.Text;
     }
 }
