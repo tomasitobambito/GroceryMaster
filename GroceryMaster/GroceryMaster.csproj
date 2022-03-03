@@ -10,4 +10,8 @@
       <Folder Include="Model" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Images\SearchBackground.png" />
+    </ItemGroup>
+
 </Project>
