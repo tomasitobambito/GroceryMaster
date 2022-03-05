@@ -25,7 +25,7 @@
                 <ComboBoxItem Content="BestBefore-Descending" />
             </ComboBox>
         </DockPanel>
-        <TabControl Grid.Row="1" TabStripPlacement="Bottom">
+        <TabControl Grid.Row="1" TabStripPlacement="Bottom" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
             <TabControl.Resources>
                 <Style TargetType="TabPanel">
                     <Setter Property="HorizontalAlignment" Value="Center" />
@@ -33,9 +33,34 @@
             </TabControl.Resources>
             <TabControl.Items>
                 <TabItem Header="Storage">
-                    <TextBlock Text="{Binding Path=TestText}"></TextBlock>
+                    <ListView ItemsSource="{Binding Path=StorageItems}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Description}" />
+                                    <TextBlock Text="{Binding Category}" />
+                                    <TextBlock Text="{Binding BestBefore}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </TabItem>
-                <TabItem Header="Shopping"></TabItem>
+                <TabItem Header="Shopping">
+                    <ListView ItemsSource="{Binding ShoppingItems}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel>
+                                    <WrapPanel>
+                                        <TextBlock Text="{Binding Description}" />
+                                        <TextBlock Text="{Binding Note}" FontSize="12" FontStyle="Italic" 
+                                                   Margin="10, 0, 0, 0"/>
+                                    </WrapPanel>
+                                    <TextBlock Text="{Binding Category}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </TabItem>
             </TabControl.Items>
         </TabControl>
     </Grid>

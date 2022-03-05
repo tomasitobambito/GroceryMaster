@@ -11,7 +11,7 @@ namespace GroceryMaster.View
         public MainWindowView()
         {
             var viewModel = new MainWindowViewModel();
-            
+
             DataContext = viewModel;
             InitializeComponent();
         }

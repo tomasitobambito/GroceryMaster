@@ -8,31 +8,31 @@ using GroceryMaster.Model;
 
 namespace GroceryMaster.Dialogs
 {
-    public partial class StorageItemInputDialog : Window
+    public partial class ShoppingItemInputDialog : Window
     {
         public List<string> ItemCategories { get; }
 
-        public StorageItem NewItem = new();
+        public ShoppingItem NewItem = new();
 
-        public StorageItemInputDialog()
+        public ShoppingItemInputDialog()
         {
             ItemCategories = new List<string>();
-            
+
             foreach (ItemCategory value in Enum.GetValues(typeof(ItemCategory)).Cast<ItemCategory>())
                 ItemCategories.Add(value.GetDescript());
 
-            DataContext = this;
             InitializeComponent();
+            DataContext = this;
         }
 
         private void BtnDialogOk_OnClick(object sender, RoutedEventArgs e)
         {
-            if (TxtBox.Text != "" && CmbBox.SelectedItem != null)
+            if (TxtBoxDescript.Text != "" && CmbBox.SelectedItem != null)
             {
-                NewItem.Description = TxtBox.Text;
+                NewItem.Description = TxtBoxDescript.Text;
+                NewItem.Note = TxtBoxNote.Text;
                 NewItem.Category = ItemCategoryExtension.GetCategoryFromDescript(CmbBox.SelectedItem.ToString());
-                NewItem.BestBefore = DatePicker.SelectedDate;
-                DialogResult = true;   
+                DialogResult = true;
             }
             else
             {
