@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Text.Json;
+using System.Windows;
 using System.Windows.Input;
 using GroceryMaster.Dialogs;
 using GroceryMaster.Handlers;
@@ -31,7 +32,7 @@ namespace GroceryMaster.ViewModel
         {
             StorageItemInputDialog inputDialog = new StorageItemInputDialog();
             if (inputDialog.ShowDialog() == true)
-                MessageBox.Show(inputDialog.Selected);
+                MessageBox.Show(inputDialog.NewItem.Description);
             TestText = "this is some new text, take that ruben";
 
             _newEntryCommand.InvokeCanExecuteChanged();
