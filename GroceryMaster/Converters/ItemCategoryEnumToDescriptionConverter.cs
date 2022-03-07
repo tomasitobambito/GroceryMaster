@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Windows.Data;
 using GroceryMaster.Enums;
+// ReSharper disable PossibleNullReferenceException
 
 namespace GroceryMaster.Converters
 {
@@ -21,11 +22,10 @@ namespace GroceryMaster.Converters
         {
             foreach (var field in typeof(ItemCategory).GetFields())
             {
-                if (Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is DescriptionAttribute attribute)
-                {
-                    if (attribute.Description == (string) value)
-                        return (ItemCategory) field.GetValue(null);
-                }
+                if (Attribute.GetCustomAttribute(field, typeof(DescriptionAttribute)) is not DescriptionAttribute
+                    attribute) continue;
+                if (attribute.Description == (string) value)
+                    return (ItemCategory) field.GetValue(null);
             }
 
             throw new ArgumentException("Not Found.", nameof(value));
