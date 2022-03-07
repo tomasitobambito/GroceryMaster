@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using GroceryMaster.Dialogs;
 using GroceryMaster.Extensions;
@@ -12,11 +13,21 @@ namespace GroceryMaster.ViewModel
         private readonly CommandHandler _newEntryCommand;
         public ICommand NewEntryCommand => _newEntryCommand;
 
+        private readonly CommandHandler _deleteEntriesCommand;
+        public ICommand DeleteEntriesCommand => _deleteEntriesCommand;
+
         private ObservableCollection<StorageItem> _storageItems;
         public ObservableCollection<StorageItem> StorageItems
         {
             get => _storageItems;
             set => SetProperty(ref _storageItems, value);
+        }
+
+        private ObservableCollection<StorageItem> _selectedStorageItems;
+        public ObservableCollection<StorageItem> SelectedStorageItems
+        {
+            get => _selectedStorageItems;
+            set => SetProperty(ref _selectedStorageItems, value);
         }
 
         private ObservableCollection<ShoppingItem> _shoppingItems;
@@ -32,12 +43,13 @@ namespace GroceryMaster.ViewModel
             get => _selectedTabIndex;
             set => SetProperty(ref _selectedTabIndex, value);
         }
-        
+
         public MainWindowViewModel()
         {
             _storageItems = StorageItem.GetStorageItems();
             _shoppingItems = ShoppingItem.GetShoppingItems();
             _newEntryCommand = new CommandHandler(OnNewEntry, CanNewEntry);
+            _deleteEntriesCommand = new CommandHandler(OnDeleteEntries, CanDeleteEntries);
         }
 
         public void OnNewEntry(object commandParameter)
@@ -64,6 +76,16 @@ namespace GroceryMaster.ViewModel
         }
 
         public bool CanNewEntry(object commandParameter)
+        {
+            return true;
+        }
+        
+        private void OnDeleteEntries(object commandParameter)
+        {
+            MessageBox.Show(commandParameter.ToString());
+        }
+
+        private bool CanDeleteEntries(object commandParameter)
         {
             return true;
         }
