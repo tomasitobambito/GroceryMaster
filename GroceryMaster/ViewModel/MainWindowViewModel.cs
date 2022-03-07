@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Input;
 using GroceryMaster.Dialogs;
+using GroceryMaster.Extensions;
 using GroceryMaster.Handlers;
 using GroceryMaster.Model;
 
@@ -34,8 +35,8 @@ namespace GroceryMaster.ViewModel
         
         public MainWindowViewModel()
         {
-            _storageItems = new ObservableCollection<StorageItem>();
-            _shoppingItems = new ObservableCollection<ShoppingItem>();
+            _storageItems = StorageItem.GetStorageItems();
+            _shoppingItems = ShoppingItem.GetShoppingItems();
             _newEntryCommand = new CommandHandler(OnNewEntry, CanNewEntry);
         }
 
@@ -45,13 +46,19 @@ namespace GroceryMaster.ViewModel
             {
                 StorageItemInputDialog inputDialog = new();
                 if (inputDialog.ShowDialog() == true)
-                    StorageItems.Add(inputDialog.NewItem);   
+                {
+                    StorageItems.Add(inputDialog.NewItem);
+                    StorageItems.SaveToFile();
+                }
             }
             else
             {
                 ShoppingItemInputDialog inputDialog = new();
                 if (inputDialog.ShowDialog() == true)
+                {
                     ShoppingItems.Add(inputDialog.NewItem);
+                    ShoppingItems.SaveToFile();
+                }
             }
             _newEntryCommand.InvokeCanExecuteChanged();
         }

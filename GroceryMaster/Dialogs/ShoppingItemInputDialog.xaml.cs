@@ -10,16 +10,16 @@ namespace GroceryMaster.Dialogs
 {
     public partial class ShoppingItemInputDialog : Window
     {
-        public List<string> ItemCategories { get; }
+        public List<ItemCategory> ItemCategories { get; }
 
         public ShoppingItem NewItem = new();
 
         public ShoppingItemInputDialog()
         {
-            ItemCategories = new List<string>();
+            ItemCategories = new List<ItemCategory>();
 
             foreach (ItemCategory value in Enum.GetValues(typeof(ItemCategory)).Cast<ItemCategory>())
-                ItemCategories.Add(value.GetDescript());
+                ItemCategories.Add(value);
 
             InitializeComponent();
             DataContext = this;
@@ -31,7 +31,7 @@ namespace GroceryMaster.Dialogs
             {
                 NewItem.Description = TxtBoxDescript.Text;
                 NewItem.Note = TxtBoxNote.Text;
-                NewItem.Category = ItemCategoryExtension.GetCategoryFromDescript(CmbBox.SelectedItem.ToString());
+                NewItem.Category = (ItemCategory) CmbBox.SelectedItem;
                 DialogResult = true;
             }
             else

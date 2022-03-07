@@ -10,16 +10,16 @@ namespace GroceryMaster.Dialogs
 {
     public partial class StorageItemInputDialog : Window
     {
-        public List<string> ItemCategories { get; }
+        public List<ItemCategory> ItemCategories { get; }
 
         public StorageItem NewItem = new();
 
         public StorageItemInputDialog()
         {
-            ItemCategories = new List<string>();
+            ItemCategories = new List<ItemCategory>();
             
             foreach (ItemCategory value in Enum.GetValues(typeof(ItemCategory)).Cast<ItemCategory>())
-                ItemCategories.Add(value.GetDescript());
+                ItemCategories.Add(value);
 
             DataContext = this;
             InitializeComponent();
@@ -30,7 +30,7 @@ namespace GroceryMaster.Dialogs
             if (TxtBox.Text != "" && CmbBox.SelectedItem != null)
             {
                 NewItem.Description = TxtBox.Text;
-                NewItem.Category = ItemCategoryExtension.GetCategoryFromDescript(CmbBox.SelectedItem.ToString());
+                NewItem.Category = (ItemCategory) CmbBox.SelectedItem;
                 NewItem.BestBefore = DatePicker.SelectedDate;
                 DialogResult = true;   
             }

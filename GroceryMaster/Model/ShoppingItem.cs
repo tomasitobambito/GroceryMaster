@@ -1,4 +1,7 @@
-﻿using GroceryMaster.Enums;
+﻿using System.Collections.ObjectModel;
+using System.IO;
+using GroceryMaster.Enums;
+using GroceryMaster.Handlers;
 
 namespace GroceryMaster.Model
 {
@@ -7,5 +10,18 @@ namespace GroceryMaster.Model
         public string Description { get; set; }
         public string Note { get; set; }
         public ItemCategory Category { get; set; }
+        
+        public static ObservableCollection<ShoppingItem> GetShoppingItems()
+        {
+            var path = FileHandler.GetAppDataFile("ShoppingItems.json");
+            try
+            {
+                return FileHandler.ReadFromJSONFile<ObservableCollection<ShoppingItem>>(path);
+            }
+            catch
+            {
+                return new ObservableCollection<ShoppingItem>();
+            }
+        }
     }
 }

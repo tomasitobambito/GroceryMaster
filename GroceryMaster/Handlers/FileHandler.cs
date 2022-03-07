@@ -6,12 +6,14 @@ namespace GroceryMaster.Handlers
 {
     public static class FileHandler
     {
-        public static string GetAppData()
+        public static string GetAppDataFile(string fileName)
         {
             var path = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
             path = Path.Combine(path, "GroceryMaster");
-
+            
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
+            
+            path = Path.Combine(path, fileName);
 
             return path;
         }

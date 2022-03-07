@@ -4,8 +4,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:GroceryMaster.Dialogs"
+        xmlns:converters="clr-namespace:GroceryMaster.Converters"
         mc:Ignorable="d"
         Title="Enter Shopping Item" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <converters:ItemCategoryEnumToDescriptionConverter x:Key="ItemCategoryEnumToDescriptionConverter" />
+    </Window.Resources>
     <Grid Margin="15">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -13,13 +17,20 @@
         </Grid.RowDefinitions>
         
         <StackPanel Grid.Row="0">
-            <TextBox Name="TxtBoxDescript" Style="{StaticResource WaterMark}" Tag="What do you want to add to the shopping list?" 
-                     Width="270" Height="24" />
+            <TextBox Name="TxtBoxDescript" Style="{StaticResource WaterMark}" 
+                     Tag="What do you want to add to the shopping list?" Width="270" Height="24" />
             <TextBox Name="TxtBoxNote" Style="{StaticResource WaterMark}" Tag="Additional information" 
                      Margin="0, 10, 0, 0" Height="24" />
             <StackPanel>
                 <Label Content="Item Category:" />
-                <ComboBox Name="CmbBox" ItemsSource="{Binding Path=ItemCategories}" Height="24" />
+                <ComboBox Name="CmbBox" ItemsSource="{Binding Path=ItemCategories}" Height="24">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Converter={StaticResource 
+                            ItemCategoryEnumToDescriptionConverter}}" />
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </StackPanel>
         </StackPanel>
         <WrapPanel Grid.Row="1" HorizontalAlignment="Right" Margin="0, 15, 0, 0">
