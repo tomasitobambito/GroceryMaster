@@ -29,7 +29,8 @@
                 <ComboBoxItem Content="BestBefore-Descending" />
             </ComboBox>
         </DockPanel>
-        <TabControl Grid.Row="1" TabStripPlacement="Bottom" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+        <TabControl Grid.Row="1" TabStripPlacement="Bottom" 
+                    SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
             <TabControl.Resources>
                 <Style TargetType="TabPanel">
                     <Setter Property="HorizontalAlignment" Value="Center" />
@@ -37,7 +38,16 @@
             </TabControl.Resources>
             <TabControl.Items>
                 <TabItem Header="Storage">
-                    <ListView ItemsSource="{Binding Path=StorageItems}">
+                    <ListView ItemsSource="{Binding Path=StorageItems}" Background="Transparent" 
+                              BorderThickness="0">
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="New Item" />
+                                <Separator/>
+                                <MenuItem Header="Delete" />
+                                <MenuItem Header="Edit" />
+                            </ContextMenu>
+                        </ListView.ContextMenu>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
@@ -52,7 +62,16 @@
                     </ListView>
                 </TabItem>
                 <TabItem Header="Shopping">
-                    <ListView ItemsSource="{Binding ShoppingItems}">
+                    <ListView ItemsSource="{Binding ShoppingItems}" Background="Transparent" 
+                              BorderThickness="0">
+                        <ListView.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="New Item" />
+                                <Separator/>
+                                <MenuItem Header="Delete" />
+                                <MenuItem Header="Edit" />
+                            </ContextMenu>
+                        </ListView.ContextMenu>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel>
