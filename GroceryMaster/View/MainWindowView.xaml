@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:GroceryMaster.Converters"
+        xmlns:behaviors="clr-namespace:GroceryMaster.Behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="500"
         WindowStartupLocation="CenterScreen"
@@ -39,15 +40,13 @@
             </TabControl.Resources>
             <TabControl.Items>
                 <TabItem Header="Storage">
-                    <ListView x:Name="LvStorage" ItemsSource="{Binding Path=StorageItems}" Background="Transparent" 
-                              BorderThickness="0" SelectionMode="Extended">
+                    <ListView ItemsSource="{Binding Path=StorageItems}" Background="Transparent" 
+                              BorderThickness="0" SelectionMode="Extended" behaviors:SelectedItems.Items="{Binding SelectedStorageItems}">
                         <ListView.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="New Item" Command="{Binding NewEntryCommand}" />
                                 <Separator/>
-                                <MenuItem Header="Delete" Command="{Binding DeleteEntriesCommand}" 
-                                          CommandParameter="{Binding ElementName=LvStorage,
-                                          Path=SelectedItems}"/>
+                                <MenuItem Header="Delete" Command="{Binding DeleteEntriesCommand}" />
                                 <MenuItem Header="Edit" />
                             </ContextMenu>
                         </ListView.ContextMenu>

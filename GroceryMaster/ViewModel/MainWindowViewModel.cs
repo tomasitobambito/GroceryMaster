@@ -48,6 +48,7 @@ namespace GroceryMaster.ViewModel
         {
             _storageItems = StorageItem.GetStorageItems();
             _shoppingItems = ShoppingItem.GetShoppingItems();
+            _selectedStorageItems = new ObservableCollection<StorageItem>();
             _newEntryCommand = new CommandHandler(OnNewEntry, CanNewEntry);
             _deleteEntriesCommand = new CommandHandler(OnDeleteEntries, CanDeleteEntries);
         }
@@ -82,7 +83,10 @@ namespace GroceryMaster.ViewModel
         
         private void OnDeleteEntries(object commandParameter)
         {
-            MessageBox.Show(commandParameter.ToString());
+            foreach (StorageItem storageItem in _selectedStorageItems)
+            {
+                StorageItems.Remove(storageItem);
+            }
         }
 
         private bool CanDeleteEntries(object commandParameter)
