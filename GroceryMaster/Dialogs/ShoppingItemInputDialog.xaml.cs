@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using GroceryMaster.Enums;
-using GroceryMaster.Extensions;
 using GroceryMaster.Model;
 
 namespace GroceryMaster.Dialogs
