@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using GroceryMaster.Dialogs;
@@ -83,9 +84,9 @@ namespace GroceryMaster.ViewModel
         
         private void OnDeleteEntries(object commandParameter)
         {
-            foreach (StorageItem storageItem in _selectedStorageItems)
+            foreach (StorageItem storageItem in new ObservableCollection<StorageItem>(_selectedStorageItems))
             {
-                StorageItems.Remove(storageItem);
+                StorageItems.Remove(StorageItems.Single(i => i.Description == storageItem.Description));
             }
         }
 
