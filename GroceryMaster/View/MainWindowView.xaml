@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:GroceryMaster.Converters"
+        xmlns:attachedProperties="clr-namespace:GroceryMaster.AttachedProperties"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="500"
         WindowStartupLocation="CenterScreen"
@@ -19,7 +20,8 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBox Grid.Row="0" Height="25" Style="{StaticResource WaterMark}" Margin="5" Tag="What item are you looking for?" />
-        <Button Grid.Row="1" Content="New entry" Panel.ZIndex="1000" Width="100" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="5, 30" Command="{Binding Path=NewEntryCommand}"/>
+        <Button Grid.Row="1" Content="New entry" Panel.ZIndex="1000" Width="100" HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom" Margin="5, 30" Command="{Binding Path=NewEntryCommand}"/>
         <DockPanel Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5, 7" ZIndex="1000">
             <TextBlock Text="Sort by: " DockPanel.Dock="Left" VerticalAlignment="Center" />
             <ComboBox DockPanel.Dock="Right">
@@ -39,13 +41,14 @@
             <TabControl.Items>
                 <TabItem Header="Storage">
                     <ListView ItemsSource="{Binding Path=StorageItems}" Background="Transparent" 
-                              BorderThickness="0">
+                              BorderThickness="0" SelectionMode="Extended" 
+                              attachedProperties:SelectedItemsProp.Items="{Binding SelectedStorageItems}">
                         <ListView.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="New Item" />
+                                <MenuItem Header="New Item" Command="{Binding NewEntryCommand}" />
                                 <Separator/>
-                                <MenuItem Header="Delete" />
-                                <MenuItem Header="Edit" />
+                                <MenuItem Header="Delete" Command="{Binding DeleteEntriesCommand}" />
+                                <MenuItem Header="Edit" Command="{Binding EditEntryCommand}" />
                             </ContextMenu>
                         </ListView.ContextMenu>
                         <ListView.ItemTemplate>
@@ -63,13 +66,14 @@
                 </TabItem>
                 <TabItem Header="Shopping">
                     <ListView ItemsSource="{Binding ShoppingItems}" Background="Transparent" 
-                              BorderThickness="0">
+                              BorderThickness="0" SelectionMode="Extended"
+                              attachedProperties:SelectedItemsProp.Items="{Binding SelectedShoppingItems}">
                         <ListView.ContextMenu>
                             <ContextMenu>
-                                <MenuItem Header="New Item" />
+                                <MenuItem Header="New Item" Command="{Binding NewEntryCommand}" />
                                 <Separator/>
-                                <MenuItem Header="Delete" />
-                                <MenuItem Header="Edit" />
+                                <MenuItem Header="Delete" Command="{Binding DeleteEntriesCommand}"/>
+                                <MenuItem Header="Edit" Command="{Binding EditEntryCommand}"/>
                             </ContextMenu>
                         </ListView.ContextMenu>
                         <ListView.ItemTemplate>
