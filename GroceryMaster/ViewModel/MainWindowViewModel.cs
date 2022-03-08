@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using GroceryMaster.Dialogs;
 using GroceryMaster.Extensions;
