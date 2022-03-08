@@ -48,7 +48,7 @@
                                 <MenuItem Header="New Item" Command="{Binding NewEntryCommand}" />
                                 <Separator/>
                                 <MenuItem Header="Delete" Command="{Binding DeleteEntriesCommand}" />
-                                <MenuItem Header="Edit" />
+                                <MenuItem Header="Edit" Command="{Binding EditEntryCommand}" />
                             </ContextMenu>
                         </ListView.ContextMenu>
                         <ListView.ItemTemplate>
@@ -73,7 +73,7 @@
                                 <MenuItem Header="New Item" Command="{Binding NewEntryCommand}" />
                                 <Separator/>
                                 <MenuItem Header="Delete" Command="{Binding DeleteEntriesCommand}"/>
-                                <MenuItem Header="Edit" />
+                                <MenuItem Header="Edit" Command="{Binding EditEntryCommand}"/>
                             </ContextMenu>
                         </ListView.ContextMenu>
                         <ListView.ItemTemplate>

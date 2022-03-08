@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:GroceryMaster.Dialogs"
         xmlns:converters="clr-namespace:GroceryMaster.Converters"
         mc:Ignorable="d"
-        Title="Enter Storage Item" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
+        Title="{Binding WindowTitle}" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <converters:ItemCategoryEnumToDescriptionConverter x:Key="ItemCategoryEnumToDescriptionConverter" />
     </Window.Resources>
@@ -24,7 +24,8 @@
                 <ComboBox Name="CmbBox" ItemsSource="{Binding Path=ItemCategories}" Height="24">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Converter={StaticResource ItemCategoryEnumToDescriptionConverter}}" />
+                            <TextBlock Text="{Binding Converter={StaticResource 
+                            ItemCategoryEnumToDescriptionConverter}}" />
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
@@ -35,7 +36,8 @@
             </StackPanel>
         </StackPanel>
         <WrapPanel Grid.Row="1" HorizontalAlignment="Right" Margin="0, 15, 0, 0">
-            <Button IsDefault="True" Click="BtnDialogOk_OnClick" MinWidth="60" Margin="0, 0, 10, 0" Content="Add Item" />
+            <Button IsDefault="True" Click="BtnDialogOk_OnClick" MinWidth="60" Margin="0, 0, 10, 0" 
+                    Content="{Binding ButtonText}" />
             <Button IsCancel="True" MinWidth="60" Content="Cancel" />
         </WrapPanel>
     </Grid>

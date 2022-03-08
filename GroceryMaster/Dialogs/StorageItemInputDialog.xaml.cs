@@ -12,16 +12,22 @@ namespace GroceryMaster.Dialogs
         public List<ItemCategory> ItemCategories { get; }
 
         public StorageItem NewItem = new();
+        
+        public string ButtonText { get; }
+        public string WindowTitle { get; }
 
-        public StorageItemInputDialog()
+        public StorageItemInputDialog(string buttonText, string windowTitle)
         {
+            ButtonText = buttonText;
+            WindowTitle = windowTitle;
+            
             ItemCategories = new List<ItemCategory>();
             
             foreach (ItemCategory value in Enum.GetValues(typeof(ItemCategory)).Cast<ItemCategory>())
                 ItemCategories.Add(value);
-
-            DataContext = this;
+            
             InitializeComponent();
+            DataContext = this;
         }
 
         private void BtnDialogOk_OnClick(object sender, RoutedEventArgs e)
