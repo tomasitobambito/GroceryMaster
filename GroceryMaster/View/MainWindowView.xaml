@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:converters="clr-namespace:GroceryMaster.Converters"
-        xmlns:behaviors="clr-namespace:GroceryMaster.Behaviors"
+        xmlns:attachedProperties="clr-namespace:GroceryMaster.AttachedProperties"
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="500"
         WindowStartupLocation="CenterScreen"
@@ -41,7 +41,8 @@
             <TabControl.Items>
                 <TabItem Header="Storage">
                     <ListView ItemsSource="{Binding Path=StorageItems}" Background="Transparent" 
-                              BorderThickness="0" SelectionMode="Extended" behaviors:SelectedItems.Items="{Binding SelectedStorageItems}">
+                              BorderThickness="0" SelectionMode="Extended" 
+                              attachedProperties:SelectedItemsProp.Items="{Binding SelectedStorageItems}">
                         <ListView.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="New Item" Command="{Binding NewEntryCommand}" />
@@ -65,12 +66,13 @@
                 </TabItem>
                 <TabItem Header="Shopping">
                     <ListView ItemsSource="{Binding ShoppingItems}" Background="Transparent" 
-                              BorderThickness="0">
+                              BorderThickness="0" SelectionMode="Extended"
+                              attachedProperties:SelectedItemsProp.Items="{Binding SelectedShoppingItems}">
                         <ListView.ContextMenu>
                             <ContextMenu>
                                 <MenuItem Header="New Item" Command="{Binding NewEntryCommand}" />
                                 <Separator/>
-                                <MenuItem Header="Delete" />
+                                <MenuItem Header="Delete" Command="{Binding DeleteEntriesCommand}"/>
                                 <MenuItem Header="Edit" />
                             </ContextMenu>
                         </ListView.ContextMenu>

@@ -2,9 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace GroceryMaster.Behaviors
+namespace GroceryMaster.AttachedProperties
 {
-    public static class SelectedItems
+    public static class SelectedItemsProp
     {
         private static readonly DependencyProperty SelectedItemsBehaviorProperty =
             DependencyProperty.RegisterAttached(
@@ -16,7 +16,7 @@ namespace GroceryMaster.Behaviors
         public static readonly DependencyProperty ItemsProperty = DependencyProperty.RegisterAttached(
             "Items",
             typeof(IList),
-            typeof(SelectedItems),
+            typeof(SelectedItemsProp),
             new PropertyMetadata(null, OnItemPropertyChanged));
 
             public static void SetItems(ListView listView, IList list) { listView.SetValue(ItemsProperty, list); }
@@ -42,28 +42,5 @@ namespace GroceryMaster.Behaviors
 
                 return behavior;
             }
-    }
-}
-
-public class SelectedItemsBehavior
-{
-    private readonly ListView _listView;
-    private readonly IList _boundList;
-
-    public SelectedItemsBehavior(ListView listView, IList boundList)
-    {
-        _boundList = boundList;
-        _listView = listView;
-        _listView.SelectionChanged += OnSelectionChanged;
-    }
-
-    private void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        _boundList.Clear();
-
-        foreach (var item in _listView.SelectedItems)
-        {
-            _boundList.Add(item);
-        }
     }
 }

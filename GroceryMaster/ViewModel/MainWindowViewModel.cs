@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using GroceryMaster.Dialogs;
 using GroceryMaster.Extensions;
@@ -28,7 +27,7 @@ namespace GroceryMaster.ViewModel
         public ObservableCollection<StorageItem> SelectedStorageItems
         {
             get => _selectedStorageItems;
-            set => SetProperty(ref _selectedStorageItems, value);
+            set => SetProperty(ref _selectedStorageItems, value); 
         }
 
         private ObservableCollection<ShoppingItem> _shoppingItems;
@@ -36,6 +35,13 @@ namespace GroceryMaster.ViewModel
         {
             get => _shoppingItems;
             set => SetProperty(ref _shoppingItems, value);
+        }
+
+        private ObservableCollection<ShoppingItem> _selectedShoppingItems;
+        public ObservableCollection<ShoppingItem> SelectedShoppingItems
+        {
+            get => _selectedShoppingItems;
+            set => SetProperty(ref _selectedShoppingItems, value);
         }
 
         private int _selectedTabIndex;
@@ -50,6 +56,7 @@ namespace GroceryMaster.ViewModel
             _storageItems = StorageItem.GetStorageItems();
             _shoppingItems = ShoppingItem.GetShoppingItems();
             _selectedStorageItems = new ObservableCollection<StorageItem>();
+            _selectedShoppingItems = new ObservableCollection<ShoppingItem>();
             _newEntryCommand = new CommandHandler(OnNewEntry, CanNewEntry);
             _deleteEntriesCommand = new CommandHandler(OnDeleteEntries, CanDeleteEntries);
         }
@@ -74,7 +81,6 @@ namespace GroceryMaster.ViewModel
                     ShoppingItems.SaveToFile();
                 }
             }
-            _newEntryCommand.InvokeCanExecuteChanged();
         }
 
         public bool CanNewEntry(object commandParameter)
@@ -84,15 +90,32 @@ namespace GroceryMaster.ViewModel
         
         private void OnDeleteEntries(object commandParameter)
         {
-            foreach (StorageItem storageItem in new ObservableCollection<StorageItem>(_selectedStorageItems))
+            switch (_selectedTabIndex)
             {
-                StorageItems.Remove(StorageItems.Single(i => i.Description == storageItem.Description));
+                case 0:
+                    foreach (StorageItem storageItem in new ObservableCollection<StorageItem>(_selectedStorageItems))
+                    {
+                        StorageItems.Remove(StorageItems.Single(i => i.Description == 
+                                                                     storageItem.Description));
+                    }
+                    _storageItems.SaveToFile();
+                    break;
+                case 1:
+                    foreach (ShoppingItem shoppingItem in new 
+                        ObservableCollection<ShoppingItem>(_selectedShoppingItems))
+                    {
+                        ShoppingItems.Remove(ShoppingItems.Single(i => i.Description == 
+                                                                       shoppingItem.Description));
+                        _shoppingItems.SaveToFile();
+                    }
+                    break;
             }
         }
 
         private bool CanDeleteEntries(object commandParameter)
         {
-            return true;
+            return _selectedTabIndex == 0 && _selectedStorageItems.Count > 0 ||
+                   _selectedTabIndex == 1 && _selectedShoppingItems.Count > 0;
         }
     }
 }
