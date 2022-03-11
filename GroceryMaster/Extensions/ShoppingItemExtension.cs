@@ -8,7 +8,7 @@ namespace GroceryMaster.Extensions
     {
         public static void SaveToFile(this ObservableCollection<ShoppingItem> shoppingItems)
         {
-            var path = FileHandler.GetAppDataFile("ShoppingItems.json");
+            var path = FileHandler.GetListFile("ShoppingItems.json");
             FileHandler.WriteToFile(path, shoppingItems);
         }
     }
