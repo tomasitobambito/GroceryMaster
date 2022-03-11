@@ -9,18 +9,35 @@ namespace GroceryMaster.Dialogs
 {
     public partial class ShoppingItemInputDialog : Window
     {
-        public List<ItemCategory> ItemCategories { get; }
+        public List<ItemCategory> ItemCategories { get; set; }
 
         public ShoppingItem NewItem = new();
         
         public string ButtonText { get; }
         public string WindowTitle { get; }
 
-        public ShoppingItemInputDialog(string buttonText, string windowTitle)
+        public ShoppingItemInputDialog()
         {
-            ButtonText = buttonText;
-            WindowTitle = windowTitle;
+            ButtonText = "Add Item";
+            WindowTitle = "Add Shopping Item";
             
+            Initialize();
+        }
+
+        public ShoppingItemInputDialog(ShoppingItem editItem)
+        {
+            ButtonText = "Edit Item";
+            WindowTitle = "Edit Shopping Item";
+            
+            Initialize();
+
+            TxtBoxDescript.Text = editItem.Description;
+            TxtBoxNote.Text = editItem.Note;
+            CmbBox.SelectedItem = editItem.Category;
+        }
+
+        private void Initialize()
+        {
             ItemCategories = new List<ItemCategory>();
 
             foreach (ItemCategory value in Enum.GetValues(typeof(ItemCategory)).Cast<ItemCategory>())

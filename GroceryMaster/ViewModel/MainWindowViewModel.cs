@@ -83,9 +83,24 @@ namespace GroceryMaster.ViewModel
 
         private void OnNewEntry(object commandParameter)
         {
-            AddEntry(true);
-            _storageItems.SaveToFile();
-            _shoppingItems.SaveToFile();
+            if (_selectedTabIndex == 0)
+            {
+                StorageItemInputDialog inputDialog = new();
+                if (inputDialog.ShowDialog() == true)
+                {
+                    inputDialog.NewItem.UID = Increment(_settings);
+                    StorageItems.Add(inputDialog.NewItem);
+                }
+            }
+            else
+            {
+                ShoppingItemInputDialog inputDialog = new(); 
+                if (inputDialog.ShowDialog() == true)
+                {
+                    inputDialog.NewItem.UID = Increment(_settings);
+                    ShoppingItems.Add(inputDialog.NewItem);
+                }
+            }
         }
 
         private bool CanNewEntry(object commandParameter)
@@ -94,62 +109,6 @@ namespace GroceryMaster.ViewModel
         }
         
         private void OnDeleteEntries(object commandParameter)
-        {
-            DeleteEntries();
-            _storageItems.SaveToFile();
-            _shoppingItems.SaveToFile();
-        }
-
-        private bool CanDeleteEntries(object commandParameter)
-        {
-            return _selectedTabIndex == 0 && _selectedStorageItems.Count > 0 ||
-                   _selectedTabIndex == 1 && _selectedShoppingItems.Count > 0;
-        }
-        
-        private void OnEditEntry(object commandParameter)
-        {
-            if (AddEntry(false))
-                DeleteEntries();
-        }
-
-        private bool CanEditEntry(object commandParameter)
-        {
-            return _selectedTabIndex == 0 && _selectedStorageItems.Count == 1 ||
-                   _selectedTabIndex == 1 && _selectedShoppingItems.Count == 1;
-        }
-
-        private bool AddEntry(bool addingNew)
-        {
-            bool? result;
-            if (_selectedTabIndex == 0)
-            {
-                StorageItemInputDialog inputDialog = addingNew ? 
-                        new StorageItemInputDialog("Add Item", "Add Storage Item") : 
-                        new StorageItemInputDialog("Edit Item", "Edit Storage Item");
-                result = inputDialog.ShowDialog();
-                if (result == true)
-                {
-                    inputDialog.NewItem.UID = Increment(_settings);
-                    StorageItems.Add(inputDialog.NewItem);
-                }
-            }
-            else
-            {
-                ShoppingItemInputDialog inputDialog = addingNew ? 
-                    new ShoppingItemInputDialog("Add Item", "Add Shopping Item") : 
-                    new ShoppingItemInputDialog("Edit Item", "Edit Shopping Item");
-                result = inputDialog.ShowDialog();
-                if (result == true)
-                {
-                    inputDialog.NewItem.UID = Increment(_settings);
-                    ShoppingItems.Add(inputDialog.NewItem);
-                }
-            }
-
-            return result == true;
-        }
-
-        private void DeleteEntries()
         {
             switch (_selectedTabIndex)
             {
@@ -171,10 +130,52 @@ namespace GroceryMaster.ViewModel
             }
         }
 
+        private bool CanDeleteEntries(object commandParameter)
+        {
+            return _selectedTabIndex == 0 && _selectedStorageItems.Count > 0 ||
+                   _selectedTabIndex == 1 && _selectedShoppingItems.Count > 0;
+        }
+        
+        private void OnEditEntry(object commandParameter)
+        {
+            if (_selectedTabIndex == 0)
+            {
+                StorageItem selectedStorageItem = _selectedStorageItems.First();
+                StorageItemInputDialog inputDialog = new(selectedStorageItem);
+
+                if (inputDialog.ShowDialog() == true)
+                {
+                    inputDialog.NewItem.UID = selectedStorageItem.UID;
+                    StorageItems.Remove(selectedStorageItem);
+                    StorageItems.Add(inputDialog.NewItem);
+                }
+            }
+            else
+            {
+                ShoppingItem selectedShoppingItem = _selectedShoppingItems.First();
+                ShoppingItemInputDialog inputDialog = new(selectedShoppingItem);
+
+                if (inputDialog.ShowDialog() == true)
+                {
+                    inputDialog.NewItem.UID = selectedShoppingItem.UID;
+                    ShoppingItems.Remove(selectedShoppingItem);
+                    ShoppingItems.Add(inputDialog.NewItem);
+                }
+            }
+        }
+
+        private bool CanEditEntry(object commandParameter)
+        {
+            return _selectedTabIndex == 0 && _selectedStorageItems.Count == 1 ||
+                   _selectedTabIndex == 1 && _selectedShoppingItems.Count == 1;
+        }
+
         public void OnWindowClosed()
         {
             _settings.User.SelectedTabIndex = _selectedTabIndex;
             _settings.SaveUserSettings();
+            _storageItems.SaveToFile();
+            _shoppingItems.SaveToFile();
         }
     }
 }
