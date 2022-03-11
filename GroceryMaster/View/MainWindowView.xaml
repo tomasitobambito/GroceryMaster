@@ -70,6 +70,9 @@
                     <Setter Property="HorizontalAlignment" Value="Center" />
                 </Style>
             </TabControl.Resources>
+            <TabControl.InputBindings>
+                <KeyBinding Key="Delete" Command="{Binding DeleteEntriesCommand}" />
+            </TabControl.InputBindings>
             <TabControl.Items>
                 <TabItem Header="Storage">
                     <ListView ItemsSource="{Binding Path=StorageItems}" Background="Transparent" 
