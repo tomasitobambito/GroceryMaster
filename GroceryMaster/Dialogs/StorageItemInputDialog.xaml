@@ -17,10 +17,12 @@
         </Grid.RowDefinitions>
         
         <StackPanel Grid.Row="0">
-            <TextBox Name="TxtBox" Style="{StaticResource WaterMark}" Tag="What do you want to add to storage?" 
-                     Width="250" Height="24" />
+            <TextBlock Foreground="Red" FontStyle="Italic" Text="Fields with * are required"  
+                       Margin="0, 0, 0, 5"/>
+            <TextBox Name="TxtBox" Style="{StaticResource WaterMark}" 
+                     Tag="What do you want to add to storage? *" Width="250" Height="24" />
             <StackPanel>
-                <Label Content="Item Category:" />
+                <Label Content="Item Category: *" />
                 <ComboBox Name="CmbBox" ItemsSource="{Binding Path=ItemCategories}" Height="24">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
