@@ -14,7 +14,7 @@ namespace GroceryMaster.Model
 
         public static ObservableCollection<StorageItem> GetStorageItems()
         {
-            var path = FileHandler.GetAppDataFile("StorageItems.json");
+            var path = FileHandler.GetListFile("StorageItems.json");
             try
             {
                 return FileHandler.ReadFromJSONFile<ObservableCollection<StorageItem>>(path);

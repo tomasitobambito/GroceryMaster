@@ -1,17 +1,26 @@
-﻿using System.Collections.ObjectModel;
-using System.Configuration;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Input;
 using GroceryMaster.Dialogs;
 using GroceryMaster.Extensions;
 using GroceryMaster.Handlers;
+using GroceryMaster.Logic;
 using GroceryMaster.Model;
 
 namespace GroceryMaster.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase
     {
+        private SettingsLogic _settings;
+
+        private Func<SettingsLogic, int> Increment = settings =>
+        {
+            int ID = settings.User.CurrentHighestIndex;
+            settings.User.CurrentHighestIndex += 1;
+            return ID;
+        };
+
         private readonly CommandHandler _newEntryCommand;
         public ICommand NewEntryCommand => _newEntryCommand;
 
@@ -67,6 +76,9 @@ namespace GroceryMaster.ViewModel
             _newEntryCommand = new CommandHandler(OnNewEntry, CanNewEntry);
             _deleteEntriesCommand = new CommandHandler(OnDeleteEntries, CanDeleteEntries);
             _editEntryCommand = new CommandHandler(OnEditEntry, CanEditEntry);
+
+            _settings = new SettingsLogic();
+            _selectedTabIndex = _settings.User.SelectedTabIndex;
         }
 
         private void OnNewEntry(object commandParameter)
@@ -106,28 +118,30 @@ namespace GroceryMaster.ViewModel
                    _selectedTabIndex == 1 && _selectedShoppingItems.Count == 1;
         }
 
-        private bool AddEntry(bool AddingNew)
+        private bool AddEntry(bool addingNew)
         {
             bool? result;
             if (_selectedTabIndex == 0)
             {
-                StorageItemInputDialog inputDialog = AddingNew ? 
+                StorageItemInputDialog inputDialog = addingNew ? 
                         new StorageItemInputDialog("Add Item", "Add Storage Item") : 
                         new StorageItemInputDialog("Edit Item", "Edit Storage Item");
                 result = inputDialog.ShowDialog();
                 if (result == true)
                 {
+                    inputDialog.NewItem.UID = Increment(_settings);
                     StorageItems.Add(inputDialog.NewItem);
                 }
             }
             else
             {
-                ShoppingItemInputDialog inputDialog = AddingNew ? 
+                ShoppingItemInputDialog inputDialog = addingNew ? 
                     new ShoppingItemInputDialog("Add Item", "Add Shopping Item") : 
                     new ShoppingItemInputDialog("Edit Item", "Edit Shopping Item");
                 result = inputDialog.ShowDialog();
                 if (result == true)
                 {
+                    inputDialog.NewItem.UID = Increment(_settings);
                     ShoppingItems.Add(inputDialog.NewItem);
                 }
             }
@@ -142,19 +156,25 @@ namespace GroceryMaster.ViewModel
                 case 0:
                     foreach (StorageItem storageItem in new ObservableCollection<StorageItem>(_selectedStorageItems))
                     {
-                        StorageItems.Remove(StorageItems.Single(i => i.Description == 
-                                                                     storageItem.Description));
+                        StorageItems.Remove(StorageItems.Single(i => i.UID == 
+                                                                     storageItem.UID));
                     }
                     break;
                 case 1:
                     foreach (ShoppingItem shoppingItem in new 
                         ObservableCollection<ShoppingItem>(_selectedShoppingItems))
                     {
-                        ShoppingItems.Remove(ShoppingItems.Single(i => i.Description ==
-                                                                       shoppingItem.Description));
+                        ShoppingItems.Remove(ShoppingItems.Single(i => i.UID ==
+                                                                       shoppingItem.UID));
                     }
                     break;
             }
+        }
+
+        public void OnWindowClosed()
+        {
+            _settings.User.SelectedTabIndex = _selectedTabIndex;
+            _settings.SaveUserSettings();
         }
     }
 }

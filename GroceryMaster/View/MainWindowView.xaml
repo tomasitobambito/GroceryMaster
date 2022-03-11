@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="800" Width="500"
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanMinimize">
+        ResizeMode="CanMinimize"
+        Closed="MainWindowView_OnClosed">
     <Window.Resources>
         <converters:ItemCategoryEnumToDescriptionConverter x:Key="ItemCategoryEnumToDescriptionConverter" />
         <converters:DateTimeToDateStringConverter x:Key="DateTimeToDateStringConverter" />

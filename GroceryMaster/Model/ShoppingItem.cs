@@ -13,7 +13,7 @@ namespace GroceryMaster.Model
 
         public static ObservableCollection<ShoppingItem> GetShoppingItems()
         {
-            var path = FileHandler.GetAppDataFile("ShoppingItems.json");
+            var path = FileHandler.GetListFile("ShoppingItems.json");
             try
             {
                 return FileHandler.ReadFromJSONFile<ObservableCollection<ShoppingItem>>(path);
