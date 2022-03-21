@@ -20,7 +20,7 @@ namespace GroceryMaster.ViewModel
             settings.User.CurrentHighestIndex += 1;
             return ID;
         };
-
+        
         private readonly CommandHandler _newEntryCommand;
         public ICommand NewEntryCommand => _newEntryCommand;
 
@@ -29,7 +29,7 @@ namespace GroceryMaster.ViewModel
 
         private readonly CommandHandler _editEntryCommand;
         public ICommand EditEntryCommand => _editEntryCommand;
-
+      
         private ObservableCollection<StorageItem> _storageItems;
         public ObservableCollection<StorageItem> StorageItems
         {
@@ -72,7 +72,7 @@ namespace GroceryMaster.ViewModel
             
             _selectedStorageItems = new ObservableCollection<StorageItem>();
             _selectedShoppingItems = new ObservableCollection<ShoppingItem>();
-            
+
             _newEntryCommand = new CommandHandler(OnNewEntry, CanNewEntry);
             _deleteEntriesCommand = new CommandHandler(OnDeleteEntries, CanDeleteEntries);
             _editEntryCommand = new CommandHandler(OnEditEntry, CanEditEntry);
