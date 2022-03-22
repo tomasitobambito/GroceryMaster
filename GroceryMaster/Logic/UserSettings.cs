@@ -7,6 +7,8 @@ namespace GroceryMaster.Logic
     {
         public int SelectedTabIndex { get; set; }
         public int CurrentHighestIndex { get; set; }
+        public int StorageSortIndex { get; set; }
+        public int ShoppingSortIndex { get; set; }
 
         public void Save(string fileName)
         {
