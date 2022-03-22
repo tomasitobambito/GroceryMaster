@@ -25,7 +25,6 @@ namespace GroceryMaster.View
             storageView.Filter = ItemFilter;
             CollectionView shoppingView = (CollectionView) CollectionViewSource.GetDefaultView(LvShopping.ItemsSource);
             shoppingView.Filter = ItemFilter;
-
         }
 
         private void MainWindowView_OnClosed(object? sender, EventArgs e)
@@ -69,7 +68,7 @@ namespace GroceryMaster.View
                 .IndexOf(TextFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
-        private void LvStorage_OnSizeChanged(object sender, SizeChangedEventArgs e)
+        private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             StorageSortChanged();
         }
@@ -92,6 +91,11 @@ namespace GroceryMaster.View
                 LvStorage.Items.SortDescriptions.Add(new SortDescription(args[0], dir));
                 LvStorage.Items.SortDescriptions.Add(new SortDescription("Description", ListSortDirection.Ascending));
             }
+        }
+
+        private void OnTabChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TextFilter.Text = "";
         }
     }
 }

@@ -29,6 +29,14 @@ namespace GroceryMaster.ViewModel
 
         private readonly CommandHandler _editEntryCommand;
         public ICommand EditEntryCommand => _editEntryCommand;
+
+        private string _textFilterText;
+
+        public string TextFilterText
+        {
+            get => _textFilterText;
+            set => SetProperty(ref _textFilterText, value);
+        }
       
         private ObservableCollection<StorageItem> _storageItems;
         public ObservableCollection<StorageItem> StorageItems
@@ -65,6 +73,20 @@ namespace GroceryMaster.ViewModel
             set => SetProperty(ref _selectedTabIndex, value);
         }
 
+        private int _storageSortIndex;
+        public int StorageSortIndex
+        {
+            get => _storageSortIndex;
+            set => SetProperty(ref _storageSortIndex, value);
+        }
+
+        private int _shoppingSortIndex;
+        public int ShoppingSortIndex
+        {
+            get => _shoppingSortIndex;
+            set => SetProperty(ref _shoppingSortIndex, value);
+        }
+
         public MainWindowViewModel()
         {
             _storageItems = StorageItem.GetStorageItems();
@@ -79,6 +101,8 @@ namespace GroceryMaster.ViewModel
 
             _settings = new SettingsLogic();
             _selectedTabIndex = _settings.User.SelectedTabIndex;
+            _storageSortIndex = _settings.User.StorageSortIndex;
+            _shoppingSortIndex = _settings.User.ShoppingSortIndex;
         }
 
         private void OnNewEntry(object commandParameter)
@@ -101,6 +125,8 @@ namespace GroceryMaster.ViewModel
                     ShoppingItems.Add(inputDialog.NewItem);
                 }
             }
+
+            TextFilterText = "";
         }
 
         private bool CanNewEntry(object commandParameter)
@@ -162,6 +188,8 @@ namespace GroceryMaster.ViewModel
                     ShoppingItems.Add(inputDialog.NewItem);
                 }
             }
+            
+            TextFilterText = "";
         }
 
         private bool CanEditEntry(object commandParameter)
@@ -173,6 +201,8 @@ namespace GroceryMaster.ViewModel
         public void OnWindowClosed()
         {
             _settings.User.SelectedTabIndex = _selectedTabIndex;
+            _settings.User.StorageSortIndex = _storageSortIndex;
+            _settings.User.ShoppingSortIndex = _shoppingSortIndex;
             _settings.SaveUserSettings();
             _storageItems.SaveToFile();
             _shoppingItems.SaveToFile();
