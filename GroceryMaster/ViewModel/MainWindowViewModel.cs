@@ -30,14 +30,6 @@ namespace GroceryMaster.ViewModel
         private readonly CommandHandler _editEntryCommand;
         public ICommand EditEntryCommand => _editEntryCommand;
 
-        private string _textFilterText;
-
-        public string TextFilterText
-        {
-            get => _textFilterText;
-            set => SetProperty(ref _textFilterText, value);
-        }
-      
         private ObservableCollection<StorageItem> _storageItems;
         public ObservableCollection<StorageItem> StorageItems
         {
@@ -125,8 +117,6 @@ namespace GroceryMaster.ViewModel
                     ShoppingItems.Add(inputDialog.NewItem);
                 }
             }
-
-            TextFilterText = "";
         }
 
         private bool CanNewEntry(object commandParameter)
@@ -188,8 +178,6 @@ namespace GroceryMaster.ViewModel
                     ShoppingItems.Add(inputDialog.NewItem);
                 }
             }
-            
-            TextFilterText = "";
         }
 
         private bool CanEditEntry(object commandParameter)
