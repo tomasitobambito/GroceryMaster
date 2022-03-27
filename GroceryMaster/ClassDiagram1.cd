@@ -1,0 +1,144 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="FullSignature">
+  <Class Name="GroceryMaster.App">
+    <Position X="4.25" Y="0.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>App.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroceryMaster.AttachedProperties.SelectedItemsBehavior">
+    <Position X="14.25" Y="0.75" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAIAAAACAAA=</HashCode>
+      <FileName>AttachedProperties\SelectedItemsBehavior.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroceryMaster.AttachedProperties.SelectedItemsProp">
+    <Position X="8" Y="0.5" Width="6" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQAAAAAAAAAAAEAAAAAAAAiAAAAAAAAAAAAI=</HashCode>
+      <FileName>AttachedProperties\SelectedItemsProp.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroceryMaster.Converters.DateTimeToDateStringConverter" BaseTypeListCollapsed="true">
+    <Position X="7" Y="3" Width="5.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\DateTimeToDateStringConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GroceryMaster.Converters.ItemCategoryEnumToDescriptionConverter" BaseTypeListCollapsed="true">
+    <Position X="7" Y="5" Width="5.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAgAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Converters\ItemCategoryEnumToDescriptionConverter.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="GroceryMaster.Dialogs.ShoppingItemInputDialog" BaseTypeListCollapsed="true">
+    <Position X="2" Y="11.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAQAAAAAAAAAAAAAAAAAAACAIAACAIAA=</HashCode>
+      <FileName>Dialogs\ShoppingItemInputDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GroceryMaster.Dialogs.StorageItemInputDialog" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="11.5" Width="4.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAQAAAAAAAAAAAAAAAAAAACAIAACAIAA=</HashCode>
+      <FileName>Dialogs\StorageItemInputDialog.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="GroceryMaster.Extensions.ShoppingItemExtension">
+    <Position X="13.75" Y="8.25" Width="5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\ShoppingItemExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroceryMaster.Extensions.StorageItemExtension">
+    <Position X="14" Y="9.5" Width="4.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Extensions\StorageItemExtension.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroceryMaster.Handlers.CommandHandler" BaseTypeListCollapsed="true">
+    <Position X="19.5" Y="2" Width="5.75" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAACAAQAAEAAAAAAAAAAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>Handlers\CommandHandler.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="GroceryMaster.Handlers.FileHandler">
+    <Position X="14" Y="3.25" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgEAAAAAAABAAA=</HashCode>
+      <FileName>Handlers\FileHandler.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroceryMaster.Logic.SettingsLogic">
+    <Position X="14" Y="5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAABAEAAAAAAABAAABAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Logic\SettingsLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroceryMaster.Logic.UserSettings">
+    <Position X="16.75" Y="5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAAAAAgAAAEAAAAgAAgAAAQAAAgAAAAAAAAAAA=</HashCode>
+      <FileName>Logic\UserSettings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroceryMaster.Model.ShoppingItem">
+    <Position X="12" Y="13" Width="4" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAABAAAAAAAAAAAAAAAAAAAEAGAA=</HashCode>
+      <FileName>Model\ShoppingItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroceryMaster.Model.StorageItem">
+    <Position X="12" Y="15.75" Width="3.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAAAAAAAAAAABAAAAAAIAAAAAAAAAGAA=</HashCode>
+      <FileName>Model\StorageItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroceryMaster.View.MainWindowView" BaseTypeListCollapsed="true">
+    <Position X="0.75" Y="15" Width="6" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAAAhAAAAAAAQCACAAAgIAABAAAAAAAAAAAA=</HashCode>
+      <FileName>View\MainWindowView.xaml.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.434" />
+  </Class>
+  <Class Name="GroceryMaster.ViewModel.MainWindowViewModel">
+    <Position X="2" Y="2" Width="5" />
+    <TypeIdentifier>
+      <HashCode>AABAEAAAACAAIEKMoARAgYEAACAVAAAkBCBATAACAAA=</HashCode>
+      <FileName>ViewModel\MainWindowViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GroceryMaster.ViewModel.ViewModelBase">
+    <Position X="0.5" Y="9.75" Width="5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAEAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModel\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Enum Name="GroceryMaster.Enums.ItemCategory">
+    <Position X="21.25" Y="12" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgABACAIAADCISgAAAAEAAAAAgEAJAAAAAAAAAAAUig=</HashCode>
+      <FileName>Enums\ItemCategory.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
