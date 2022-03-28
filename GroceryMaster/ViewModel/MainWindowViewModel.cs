@@ -13,14 +13,16 @@ namespace GroceryMaster.ViewModel
     public class MainWindowViewModel : ViewModelBase
     {
         private SettingsLogic _settings;
-
-        private Func<SettingsLogic, int> Increment = settings =>
+        
+        private Func<SettingsLogic, int> Increment = settings => // Increment current highest ID on new Item creation
         {
             int ID = settings.User.CurrentHighestIndex;
             settings.User.CurrentHighestIndex += 1;
             return ID;
         };
         
+        // Define private fields for direct access and public properties for GUI binding
+        // Commands
         private readonly CommandHandler _newEntryCommand;
         public ICommand NewEntryCommand => _newEntryCommand;
 
@@ -30,6 +32,7 @@ namespace GroceryMaster.ViewModel
         private readonly CommandHandler _editEntryCommand;
         public ICommand EditEntryCommand => _editEntryCommand;
 
+        // ListView ItemSources
         private ObservableCollection<StorageItem> _storageItems;
         public ObservableCollection<StorageItem> StorageItems
         {
@@ -44,6 +47,7 @@ namespace GroceryMaster.ViewModel
             set => SetProperty(ref _selectedStorageItems, value); 
         }
 
+        // Selected Items attached property
         private ObservableCollection<ShoppingItem> _shoppingItems;
         public ObservableCollection<ShoppingItem> ShoppingItems
         {
@@ -58,6 +62,7 @@ namespace GroceryMaster.ViewModel
             set => SetProperty(ref _selectedShoppingItems, value);
         }
 
+        // Miscellaneous
         private int _selectedTabIndex;
         public int SelectedTabIndex
         {
@@ -79,6 +84,7 @@ namespace GroceryMaster.ViewModel
             set => SetProperty(ref _shoppingSortIndex, value);
         }
 
+        // Constructor, gathers all data needed from settings and appdata, then initialises fields
         public MainWindowViewModel()
         {
             _storageItems = StorageItem.GetStorageItems();
@@ -97,7 +103,8 @@ namespace GroceryMaster.ViewModel
             _shoppingSortIndex = _settings.User.ShoppingSortIndex;
         }
 
-        private void OnNewEntry(object commandParameter)
+        // handling command functionality
+        private void OnNewEntry(object commandParameter) // Execute New Entry
         {
             if (_selectedTabIndex == 0)
             {
@@ -119,12 +126,12 @@ namespace GroceryMaster.ViewModel
             }
         }
 
-        private bool CanNewEntry(object commandParameter)
+        private bool CanNewEntry(object commandParameter) // Check if can execute new Entry
         {
             return true;
         }
         
-        private void OnDeleteEntries(object commandParameter)
+        private void OnDeleteEntries(object commandParameter) // Execute Delete Entries
         {
             switch (_selectedTabIndex)
             {
@@ -146,13 +153,14 @@ namespace GroceryMaster.ViewModel
             }
         }
 
-        private bool CanDeleteEntries(object commandParameter)
+        private bool CanDeleteEntries(object commandParameter) // Check if can execute delete entries
         {
+            // checks that the SelectedItems list of the current tab is not empty
             return _selectedTabIndex == 0 && _selectedStorageItems.Count > 0 ||
                    _selectedTabIndex == 1 && _selectedShoppingItems.Count > 0;
         }
         
-        private void OnEditEntry(object commandParameter)
+        private void OnEditEntry(object commandParameter) // Execute edit entry
         {
             if (_selectedTabIndex == 0)
             {
@@ -180,13 +188,14 @@ namespace GroceryMaster.ViewModel
             }
         }
 
-        private bool CanEditEntry(object commandParameter)
+        private bool CanEditEntry(object commandParameter) // Check if can execute edit entry
         {
+            // checks if SelectedItems list of current tab contains exactly one item
             return _selectedTabIndex == 0 && _selectedStorageItems.Count == 1 ||
                    _selectedTabIndex == 1 && _selectedShoppingItems.Count == 1;
         }
 
-        public void OnWindowClosed()
+        public void OnWindowClosed() // called by the codebehind when the window is closed
         {
             _settings.User.SelectedTabIndex = _selectedTabIndex;
             _settings.User.StorageSortIndex = _storageSortIndex;
