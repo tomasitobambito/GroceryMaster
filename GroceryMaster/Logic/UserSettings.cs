@@ -10,24 +10,27 @@ namespace GroceryMaster.Logic
         public int StorageSortIndex { get; set; }
         public int ShoppingSortIndex { get; set; }
 
+        // write contents of self to file as xml
         public void Save(string fileName)
         {
             using StreamWriter sw = new (fileName);
             XmlSerializer xmls = new (typeof(UserSettings));
-            xmls.Serialize(sw, this);
+            xmls.Serialize(sw, this); // serialize to file
         }
-
+        
+        // read UserSettings object from file
         public static UserSettings Read(string fileName)
         {
             using StreamReader sw = new (fileName);
             XmlSerializer xmls = new (typeof(UserSettings));
-            return xmls.Deserialize(sw) as UserSettings;
+            return xmls.Deserialize(sw) as UserSettings; // read from file
         }
 
         public static UserSettings GetDefault()
         {
             UserSettings settings = new()
             {
+                // set default values for first program start
                 SelectedTabIndex = 0,
                 CurrentHighestIndex = 1
             };
