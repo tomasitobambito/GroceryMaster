@@ -45,7 +45,7 @@ namespace GroceryMaster.View
             ShoppingSortChanged();
         }
 
-        // update CollectionViwe filter when text in search box is changed
+        // update CollectionView filter when text in search box is changed
         private void TextFilter_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(viewModel.SelectedTabIndex == 0 ? 
