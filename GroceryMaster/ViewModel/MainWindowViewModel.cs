@@ -106,19 +106,19 @@ namespace GroceryMaster.ViewModel
         // handling command functionality
         private void OnNewEntry(object commandParameter) // Execute New Entry
         {
-            if (_selectedTabIndex == 0)
+            if (_selectedTabIndex == 0) // executed if tab is Storage
             {
-                StorageItemInputDialog inputDialog = new();
-                if (inputDialog.ShowDialog() == true)
+                StorageItemInputDialog inputDialog = new(); 
+                if (inputDialog.ShowDialog() == true) // if the ok button has been pressed
                 {
                     inputDialog.NewItem.UID = Increment(_settings);
                     StorageItems.Add(inputDialog.NewItem);
                 }
             }
-            else
+            else // executed if tab is Shopping
             {
                 ShoppingItemInputDialog inputDialog = new(); 
-                if (inputDialog.ShowDialog() == true)
+                if (inputDialog.ShowDialog() == true) // if the ok button has been pressed
                 {
                     inputDialog.NewItem.UID = Increment(_settings);
                     ShoppingItems.Add(inputDialog.NewItem);
@@ -128,24 +128,28 @@ namespace GroceryMaster.ViewModel
 
         private bool CanNewEntry(object commandParameter) // Check if can execute new Entry
         {
-            return true;
+            return true; // can always add new entry, no conditions
         }
         
         private void OnDeleteEntries(object commandParameter) // Execute Delete Entries
         {
             switch (_selectedTabIndex)
             {
-                case 0:
+                case 0: // executed if tab is storage
+                    // loop through all selected items
                     foreach (StorageItem storageItem in new ObservableCollection<StorageItem>(_selectedStorageItems))
                     {
+                        // remove item with the same UID as the storageItem
                         StorageItems.Remove(StorageItems.Single(i => i.UID == 
-                                                                     storageItem.UID));
+                                                                     storageItem.UID)); 
                     }
                     break;
-                case 1:
+                case 1: // executed if tab is shopping
+                    // loop through all selected items
                     foreach (ShoppingItem shoppingItem in new 
                         ObservableCollection<ShoppingItem>(_selectedShoppingItems))
                     {
+                        // remove item with the same UID as shoppingItem
                         ShoppingItems.Remove(ShoppingItems.Single(i => i.UID ==
                                                                        shoppingItem.UID));
                     }
@@ -162,26 +166,26 @@ namespace GroceryMaster.ViewModel
         
         private void OnEditEntry(object commandParameter) // Execute edit entry
         {
-            if (_selectedTabIndex == 0)
+            if (_selectedTabIndex == 0) // executed if tab is Storage
             {
-                StorageItem selectedStorageItem = _selectedStorageItems.First();
+                StorageItem selectedStorageItem = _selectedStorageItems.First(); // get only item in selectedItems
                 StorageItemInputDialog inputDialog = new(selectedStorageItem);
 
-                if (inputDialog.ShowDialog() == true)
+                if (inputDialog.ShowDialog() == true) // if ok button was pressed
                 {
-                    inputDialog.NewItem.UID = selectedStorageItem.UID;
+                    inputDialog.NewItem.UID = selectedStorageItem.UID; // give NewItem the UID of the one it replaces
                     StorageItems.Remove(selectedStorageItem);
                     StorageItems.Add(inputDialog.NewItem);
                 }
             }
-            else
+            else // executed if tab is Shopping
             {
-                ShoppingItem selectedShoppingItem = _selectedShoppingItems.First();
+                ShoppingItem selectedShoppingItem = _selectedShoppingItems.First(); // get only item in selectedItems
                 ShoppingItemInputDialog inputDialog = new(selectedShoppingItem);
 
-                if (inputDialog.ShowDialog() == true)
+                if (inputDialog.ShowDialog() == true) // if ok button was pressed
                 {
-                    inputDialog.NewItem.UID = selectedShoppingItem.UID;
+                    inputDialog.NewItem.UID = selectedShoppingItem.UID; // give NewItem the UID of the one it replaces
                     ShoppingItems.Remove(selectedShoppingItem);
                     ShoppingItems.Add(inputDialog.NewItem);
                 }
