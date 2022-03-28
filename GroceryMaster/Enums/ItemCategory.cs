@@ -1,4 +1,6 @@
-﻿using System.ComponentModel;
+﻿// ReSharper disable InconsistentNaming
+// ReSharper disable UnusedMember.Global
+using System.ComponentModel;
 
 namespace GroceryMaster.Enums
 {
