@@ -45,26 +45,31 @@ namespace GroceryMaster.View
             ShoppingSortChanged();
         }
 
+        // update CollectionViwe filter when text in search box is changed
         private void TextFilter_OnTextChanged(object sender, TextChangedEventArgs e)
         {
             CollectionViewSource.GetDefaultView(viewModel.SelectedTabIndex == 0 ? 
-                    LvStorage.ItemsSource : LvShopping.ItemsSource).Refresh();
+                    LvStorage.ItemsSource : LvShopping.ItemsSource).Refresh(); // refresh current tab's ListView
         }
 
         private bool ItemFilter(object item)
         {
-            if (string.IsNullOrEmpty(TextFilter.Text)) return true;
+            if (string.IsNullOrEmpty(TextFilter.Text)) return true; // don't filter when search is empty
 
-            if (viewModel.SelectedTabIndex == 0)
+            if (viewModel.SelectedTabIndex == 0) // executed if tab is storage
             {
+                // only show items if search string matches description string
                 return ((StorageItem) item).Description
                     .IndexOf(TextFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0;
             }
 
+            // executed if tab is shopping
+            // only show items if search string matches description string
             return ((ShoppingItem) item).Description
                 .IndexOf(TextFilter.Text, StringComparison.OrdinalIgnoreCase) >= 0;
         }
 
+        // update sort when the size of the ListView changes (new item added / old removed)
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             StorageSortChanged();
@@ -80,12 +85,12 @@ namespace GroceryMaster.View
 
             LvStorage.Items.SortDescriptions.Clear(); 
 
-            if (args[0] == "Description")
+            if (args[0] == "Description") // executed if sort is by description
             {
                 LvStorage.Items.SortDescriptions.Add(new SortDescription("Description", ListSortDirection.Ascending));
             }
-            else
-            {
+            else // executed if sort is by BestBefore date
+            { 
                 LvStorage.Items.SortDescriptions.Add(new SortDescription(args[0], dir));
                 LvStorage.Items.SortDescriptions.Add(new SortDescription("Description", ListSortDirection.Ascending));
             }
@@ -95,7 +100,7 @@ namespace GroceryMaster.View
         {
             if (!ComboBoxShopping.IsLoaded) return;
 
-            // determine direction of sort based on second half of 
+            // determine direction of sort based on second half of combobox item
             var dir = ((string) ((ComboBoxItem) ComboBoxShopping.SelectedItem).Content).Split("-")[1]
                       == "Ascending" ? ListSortDirection.Ascending : ListSortDirection.Descending;
             
