@@ -33,6 +33,7 @@ namespace GroceryMaster.Dialogs
             
             Initialize();
 
+            // add the values contained in the editItem to the displayed entry fields
             TxtBox.Text = editItem.Description;
             CmbBox.SelectedItem = editItem.Category;
             DatePicker.SelectedDate = editItem.BestBefore;
@@ -44,10 +45,10 @@ namespace GroceryMaster.Dialogs
             ItemCategories = new List<ItemCategory>();
             
             foreach (ItemCategory value in Enum.GetValues(typeof(ItemCategory)).Cast<ItemCategory>())
-                ItemCategories.Add(value);
+                ItemCategories.Add(value); // create a list of all ItemCategories
             
             InitializeComponent();
-            DataContext = this;
+            DataContext = this; // set the DataContext for DataBinding
         }
 
         // method to handle what happens when the ok button is clicked
