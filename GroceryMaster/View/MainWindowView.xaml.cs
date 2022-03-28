@@ -21,31 +21,28 @@ namespace GroceryMaster.View
             DataContext = viewModel;
             InitializeComponent();
 
+            // create CollectionViews of both lists and add filter method to both
             CollectionView storageView = (CollectionView) CollectionViewSource.GetDefaultView(LvStorage.ItemsSource);
             storageView.Filter = ItemFilter;
             CollectionView shoppingView = (CollectionView) CollectionViewSource.GetDefaultView(LvShopping.ItemsSource);
             shoppingView.Filter = ItemFilter;
         }
 
-        private void MainWindowView_OnClosed(object? sender, EventArgs e)
+        private void MainWindowView_OnClosed(object? sender, EventArgs e) // pass OnClosed event to viewModel
         {
             viewModel.OnWindowClosed();
         }
 
+        // Re-sort when a new sort description is selected
         private void ComboBoxStorage_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             StorageSortChanged();
         }
 
+        // Re-sort when a new sort description is selected
         private void ComboBoxShopping_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!ComboBoxShopping.IsLoaded) return;
-
-            var dir = ((string) ((ComboBoxItem) ComboBoxShopping.SelectedItem).Content).Split("-")[1]
-                      == "Ascending" ? ListSortDirection.Ascending : ListSortDirection.Descending;
-            
-            LvShopping.Items.SortDescriptions.Clear();
-            LvShopping.Items.SortDescriptions.Add(new SortDescription("Description", dir));
+            ShoppingSortChanged();
         }
 
         private void TextFilter_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -71,6 +68,7 @@ namespace GroceryMaster.View
         private void OnSizeChanged(object sender, SizeChangedEventArgs e)
         {
             StorageSortChanged();
+            ShoppingSortChanged();
         }
 
         private void StorageSortChanged()
@@ -91,6 +89,18 @@ namespace GroceryMaster.View
                 LvStorage.Items.SortDescriptions.Add(new SortDescription(args[0], dir));
                 LvStorage.Items.SortDescriptions.Add(new SortDescription("Description", ListSortDirection.Ascending));
             }
+        }
+
+        private void ShoppingSortChanged()
+        {
+            if (!ComboBoxShopping.IsLoaded) return;
+
+            // determine direction of sort based on second half of 
+            var dir = ((string) ((ComboBoxItem) ComboBoxShopping.SelectedItem).Content).Split("-")[1]
+                      == "Ascending" ? ListSortDirection.Ascending : ListSortDirection.Descending;
+            
+            LvShopping.Items.SortDescriptions.Clear();
+            LvShopping.Items.SortDescriptions.Add(new SortDescription("Description", dir));
         }
 
         private void OnTabChanged(object sender, SelectionChangedEventArgs e)
