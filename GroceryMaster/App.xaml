@@ -4,10 +4,12 @@
              xmlns:local="clr-namespace:GroceryMaster"
              Startup="App_OnStartup">
     <Application.Resources>
+        <!-- Create a new style called WaterMark for TextBoxes as an application wide resource -->
         <Style x:Key="WaterMark" TargetType="{x:Type TextBox}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type TextBox}">
+                        <!-- Create the general layout and formatting that the WaterMark wil have -->
                         <Grid>
                             <Border Background="White" BorderBrush="#FF7D8683" BorderThickness="1" />
                             <ScrollViewer x:Name="PART_ContentHost" Margin="5, 0, 0, 0" VerticalAlignment="Center" />
@@ -15,14 +17,17 @@
                                    Content="{TemplateBinding Tag}" VerticalAlignment="Center"
                                    Visibility="Collapsed" Foreground="Gray" FontFamily="Arial" FontStyle="Italic" />
                         </Grid>
+                        <!-- Create a trigger that will activate the template when the TextBoxes text == "" -->
                         <ControlTemplate.Triggers>
                             <MultiTrigger>
                                 <MultiTrigger.Conditions>
                                     <Condition Property="Text" Value="" />
                                 </MultiTrigger.Conditions>
+                                <!-- Make WaterMarkLabel visible when Text is empty -->
                                 <Setter Property="Visibility" TargetName="WaterMarkLabel" Value="Visible" />
                             </MultiTrigger>
                             <Trigger Property="IsEnabled" Value="False">
+                                <!-- Dim WaterMarkLabel when TextBox is enabled-->
                                 <Setter Property="Foreground" Value="DimGray" />
                             </Trigger>
                         </ControlTemplate.Triggers>

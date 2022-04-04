@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <None Remove="ClassDiagram1.cd" />
       <None Remove="Images\SearchBackground.png" />
     </ItemGroup>
 

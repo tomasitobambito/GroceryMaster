@@ -8,12 +8,12 @@ namespace GroceryMaster.Handlers
     {
         public static string GetListFile(string fileName)
         {
-            var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            path = Path.Combine(path, "GroceryMaster", "Lists");
+            var path = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); // get appdata path
+            path = Path.Combine(path, "GroceryMaster", "Lists"); // direct path to Lists folder
 
             if (!Directory.Exists(path)) Directory.CreateDirectory(path);
             
-            path = Path.Combine(path, fileName);
+            path = Path.Combine(path, fileName); // add filename to the path
 
             return path;
         }
@@ -34,8 +34,8 @@ namespace GroceryMaster.Handlers
 
         public static void WriteToFile(string path, object objectToSerialize)
         {
-            var jsonString = JsonSerializer.Serialize(objectToSerialize);
-            File.WriteAllText(path, jsonString);
+            var jsonString = JsonSerializer.Serialize(objectToSerialize); // serializes list into JSON
+            File.WriteAllText(path, jsonString); // writes to file
         }
     }
 }
